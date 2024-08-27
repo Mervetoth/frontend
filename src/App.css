@@ -1,5 +1,16 @@
 .App {
   text-align: center;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.navbar {
+  background-color: var(--bg-navbar);
+  color: var(--text-primary);
+}
+
+.mainContainer {
+  background-color: var(--bg-secondary);
 }
 
 .App-logo {
@@ -14,7 +25,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #175ff3;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,6 +47,7 @@
     transform: rotate(360deg);
   }
 }
+
 label {
   display: block;
   margin-top: 10px;
@@ -44,6 +56,25 @@ label {
 .card-container.card {
   max-width: 350px !important;
   padding: 40px 40px;
+}
+.blur-contrainer {
+  border-radius: 10px;
+  margin: 10px auto; /* Center horizontally */
+  padding: 40px;
+  width: 60%;
+
+  display: flex; /* Allows justify-content and align-items to work */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: #c2ddf8; /* light blue w/opacity/see-through */
+  position: absolute; /* Allows vertical centering */
+  top: 50%; /* Start at 50% of the height */
+  left: 50%; /* Start at 50% of the width */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Offset by half of the element's own size */
 }
 
 .card {
@@ -58,6 +89,22 @@ label {
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
+.space-between-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.space-between-container .label {
+  display: inline-block; /* Ensures the label behaves like an inline element */
+  margin: 0; /* Resets any default margin */
+}
+
+.space-between-container .link {
+  display: inline-block; /* Ensures the link behaves like an inline element */
+  margin: 0; /* Resets any default margin */
+}
 
 .profile-img-card {
   width: 96px;
@@ -67,4 +114,129 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+:root {
+  --primary-blue: rgb(0, 0, 255);
+  --secondary-blue: rgb(96, 96, 182);
+
+  --text-primary-light: black;
+  --text-primary-dark: white;
+
+  --text-secondary-light: rgb(70, 70, 70);
+  --text-secondary-dark: rgb(160, 160, 160);
+
+  --bg-primary-light: white;
+  --bg-primary-dark: black;
+
+  --bg-secondary-light: rgb(212, 212, 212);
+  --bg-secondary-dark: rgb(34, 34, 34);
+
+  --bg-navbar-light: #84bcfb;
+  --bg-navbar-dark: rgb(29, 29, 58);
+}
+
+.light-theme {
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --bg-primary: var(--bg-primary-light);
+  --bg-secondary: var(--bg-secondary-light);
+  --bg-navbar: var(--bg-navbar-light);
+}
+
+.dark-theme {
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --bg-primary: var(--bg-primary-dark);
+  --bg-secondary: var(--bg-secondary-dark);
+  --bg-navbar: var(--bg-navbar-dark);
+}
+/* Title class for bold text */
+.title {
+  font-weight: bold;
+  font-size: 2em;
+  color: var(--text-primary);
+}
+
+/* Subtitle class for semi-bold text */
+.subtitle {
+  font-weight: 600;
+  font-size: 1.5em;
+  color: var(--text-secondary);
+}
+
+/* Sub-subtitle class for normal text */
+.subsubtitle {
+  font-weight: 400;
+  font-size: 0.8em;
+  color: var(--text-secondary);
+}
+
+.link {
+  font-weight: 200;
+  color: primary;
+  font-size: 0.8em;
+  text-decoration: none;
+  transition: font-weight 0.3s ease;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.link:hover {
+  font-weight: bold;
+}
+.loading-containzer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-container img {
+  width: 50px; /* Adjust size as needed */
+  height: 50px;
+}
+.body-space {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: var(--bg-navbar);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+
+  width: 98%;
+  z-index: 1000;
+  margin: 1%;
+  height: 70%;
+}
+.body-space {
+  padding: 10px 20px;
+  background-color: var(--bg-navbar);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 100;
+  margin: 0px;
+  width: 98%;
+  margin-top: 70px;
+  height: 85vh; /* Full viewport height */
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url("./assets/images/bck-blue-abstract.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #333;
+  overflow: hidden; /* Prevent scrolling */
 }

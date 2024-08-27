@@ -1,20 +1,28 @@
-//The navbar dynamically changes by login status and current User’s roles.
-//Home: always ;Login & Sign Up: if user hasn’t signed in yet;User: AuthService.getCurrentUser() returns a value;Board Moderator: roles includes ROLE_MODERATOR;Board Admin: roles includes ROLE_ADMIN
-import { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useContext, Component, Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
 import EventBus from "./common/EventBus";
 import IUser from "./types/user.types";
-import Home from "./components/home.component";
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
+
+import Navbar from "./components/navbar/index";
+import Loading from "./components/Loading spinner/Loading";
+import { ThemeContext } from "./Theme";
+
+// Lazily load route components
+const Home = lazy(() => import("./components/homeComponent/index"));
+const Login = lazy(() => import("./components/login/login.component"));
+const Register = lazy(() => import("./components/register/register.component"));
+const Profile = lazy(
+  () => import("./components/profileComponent/profile.component")
+);
+const BoardUser = lazy(() => import("./components/board-user.component"));
+const BoardModerator = lazy(
+  () => import("./components/board-moderator.component")
+);
+const BoardAdmin = lazy(() => import("./components/board-admin.component"));
 
 type Props = {};
 
@@ -67,85 +75,47 @@ class App extends Component<Props, State> {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
     return (
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
+      <AppWrapper>
+        <div className="App">
+          <div className="mainContainer">
+            <Navbar
+              currentUser={currentUser}
+              showModeratorBoard={showModeratorBoard}
+              showAdminBoard={showAdminBoard}
+              logOut={this.logOut}
+            />
 
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
+            <div className="mainContainer">
+              <Suspense fallback={<Loading />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/user" element={<BoardUser />} />
+                  <Route path="/mod" element={<BoardModerator />} />
+                  <Route path="/admin" element={<BoardAdmin />} />
+                </Routes>
+              </Suspense>
+            </div>
           </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
-        </nav>
-
-        <div className="container mt-3">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
-            <Route path="/admin" element={<BoardAdmin />} />
-          </Routes>
         </div>
-      </div>
+      </AppWrapper>
     );
   }
+}
+
+function AppWrapper({ children }: { children: React.ReactNode }) {
+  const themeContext = useContext(ThemeContext);
+
+  if (!themeContext) {
+    throw new Error("useContext must be used within a ThemeProvider");
+  }
+
+  const { theme } = themeContext;
+
+  return <div className={`App ${theme}`}>{children}</div>;
 }
 
 export default App;
