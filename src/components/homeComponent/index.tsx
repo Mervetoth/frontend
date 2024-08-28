@@ -5,6 +5,7 @@ import UserService from "../../services/user.service";
 import "./style.css";
 import Button from "@mui/material/Button/Button";
 import { ArrowForward } from "@mui/icons-material";
+
 type Props = {};
 
 type State = {
@@ -54,9 +55,13 @@ export default class Home extends Component<Props, State> {
             Secure, Transparent, and Efficient IP Solutions Powered by
             Blockchain Technology{" "}
           </p>{" "}
-          <Button variant="outlined" endIcon={<ArrowForward />}>
+          <Button
+            onClick={() => (window.location.href = "/login")}
+            variant="outlined"
+            endIcon={<ArrowForward />}
+          >
             Get started
-          </Button>{" "}
+          </Button>
         </div>
       </div>
     );

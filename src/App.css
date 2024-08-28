@@ -58,16 +58,17 @@ label {
   padding: 40px 40px;
 }
 .blur-contrainer {
+  background-color: transparent;
+  backdrop-filter: blur(50px);
   border-radius: 10px;
-  margin: 10px auto; /* Center horizontally */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 40px auto; /* Center horizontally */
   padding: 40px;
   width: 60%;
 
   display: flex; /* Allows justify-content and align-items to work */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: #c2ddf8; /* light blue w/opacity/see-through */
   position: absolute; /* Allows vertical centering */
   top: 50%; /* Start at 50% of the height */
   left: 50%; /* Start at 50% of the width */
@@ -168,7 +169,7 @@ label {
 /* Sub-subtitle class for normal text */
 .subsubtitle {
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: 1.2em;
   color: var(--text-secondary);
 }
 
@@ -212,18 +213,21 @@ label {
   height: 70%;
 }
 .body-space {
-  padding: 10px 20px;
-  background-color: var(--bg-navbar);
-  backdrop-filter: blur(10px);
+  background-color: transparent;
+  backdrop-filter: blur(50px);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 100;
   margin: 0px;
   width: 98%;
-  margin-top: 70px;
+  margin-top: 100px;
   height: 85vh; /* Full viewport height */
-  overflow: hidden; /* Prevent scrolling */
+  overflow-y: scroll;
+  padding: 20px;
+  align-items: baseline;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-navbar) transparent;
 }
 
 .mainContainer {
@@ -239,4 +243,23 @@ label {
   background-position: center;
   color: #333;
   overflow: hidden; /* Prevent scrolling */
+}
+.hr {
+  width: 98%;
+  margin: 2px auto; /* This centers the element horizontally */
+  display: flex;
+  justify-content: center;
+}
+
+.small-link {
+  margin-left: 10px;
+  color: palevioletred;
+  text-decoration: underline;
+  font-size: 0.8em;
+}
+.textfield {
+  width: 48%;
+}
+.textfield2 {
+  width: 100%;
 }

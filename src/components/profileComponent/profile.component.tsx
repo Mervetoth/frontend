@@ -2,11 +2,24 @@ import { Component } from "react";
 import { Navigate } from "react-router-dom";
 import IUser from "../../types/user.types";
 import authService from "../../services/auth.service";
-import { Avatar } from "@mui/material";
-import BuildIcon from "@mui/icons-material/Build";
-import AbcIcon from "@mui/icons-material/Abc";
+import { Avatar, Button } from "@mui/material";
+import avatar from "../../assets/images/mervet.jpg";
+import "./style.css";
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import uploadIcon from "../../assets/images/icons/upload-icon.png";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 type Props = {};
 
+const Item = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(2),
+  textAlign: "left",
+  backgroundColor: "transparent", // This removes the background color
+  boxShadow: "none", // This removes any shadow
+}));
 type State = {
   redirect: string | null;
   userReady: boolean;
@@ -44,60 +57,134 @@ export default class Profile extends Component<Props, State> {
     return (
       <div className="body-space">
         {this.state.userReady ? (
-          <div>
-            <header className="jumbotron">
-              <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-                sx={{ width: 56, height: 56 }}
-              />
-              <h3>
-                <strong>{currentUser.username}</strong> Profile
-              </h3>
-            </header>
-            <p>
-              <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)}{" "}
-              ...{" "}
-              {currentUser.accessToken.substr(
-                currentUser.accessToken.length - 20
-              )}
-            </p>
-            <p>
-              <strong>Id:</strong> {currentUser.id}
-            </p>
-            <p>
-              <strong>Email:</strong> {currentUser.email}
-            </p>
-            <p>
-              <strong>Gender:</strong> {currentUser.gender}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {currentUser.phoneNumber}
-            </p>
-            <p>
-              <strong>Wallet Address:</strong> {currentUser.walletAddress}
-            </p>
-            {currentUser.profileImageUrl && (
-              <p>
-                <strong>Profile Image:</strong>
-                <img
-                  src={currentUser.profileImageUrl}
-                  alt="Profile"
-                  style={{
-                    width: "150px",
-                    height: "150px",
-                    borderRadius: "50%",
-                  }}
-                />
-              </p>
-            )}
-            <strong>Authorities:</strong>
-            <ul>
-              {currentUser.roles &&
-                currentUser.roles.map((role, index) => (
-                  <li key={index}>{role}</li>
-                ))}
-            </ul>
+          <div className="main-div">
+            <div className="space-between-container  ">
+              {" "}
+              <div className="title-div">
+                <h3 className="title">Personal info</h3>
+                <h3 className="subsubtitle">
+                  Update your profile photo and personal details here .
+                </h3>
+              </div>
+              <Button variant="contained" startIcon={<AddRoundedIcon />}>
+                Save changes
+              </Button>
+            </div>
+
+            <hr className="hr"></hr>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Item>Name</Item>
+              </Grid>
+              <Grid item xs={8}>
+                <Item className="space-between-container  ">
+                  <TextField
+                    className="textfield"
+                    id="outlined-basic"
+                    variant="outlined"
+                    value={currentUser.firstName}
+                  />
+                  <TextField
+                    className="textfield"
+                    id="outlined-basic"
+                    variant="outlined"
+                    value={currentUser.lastName}
+                  />
+                </Item>
+              </Grid>
+            </Grid>
+            <hr className="hr"></hr>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Item>Email address</Item>
+              </Grid>
+              <Grid item xs={8}>
+                <Item>
+                  <TextField
+                    className="textfield2"
+                    id="outlined-basic"
+                    variant="outlined"
+                    value={currentUser.email}
+                  />
+                </Item>
+              </Grid>
+            </Grid>
+            <hr className="hr"></hr>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Item>
+                  Profile photo{" "}
+                  <p className="subsubtitle">
+                    This will be diplayed in your profile .
+                  </p>
+                </Item>
+              </Grid>
+
+              <Grid item xs={8}>
+                <Item>
+                  <div className="space-between-container ">
+                    <Avatar
+                      alt="Mervet"
+                      src={avatar}
+                      sx={{ width: 80, height: 80 }}
+                    />
+                    <div className="upload-photo-div ">
+                      <img
+                        src={uploadIcon}
+                        alt="Upload Icon"
+                        className="icon"
+                      />
+                      <p>
+                        <strong>Click to upload </strong>or drag and drop
+                        <br></br>
+                        SVG,PNG or JPG (max. 800*400px)
+                      </p>
+                    </div>
+                  </div>
+                </Item>
+              </Grid>
+            </Grid>
+
+            <hr className="hr"></hr>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Item>Phone Number</Item>
+              </Grid>
+              <Grid item xs={8}>
+                <Item className="space-between-container  ">
+                  <TextField
+                    className="textfield2"
+                    id="outlined-basic"
+                    variant="outlined"
+                    value={currentUser.phoneNumber}
+                  />
+                </Item>
+              </Grid>
+            </Grid>
+            <hr className="hr"></hr>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <Item>Wallet address</Item>
+              </Grid>
+              <Grid item xs={8}>
+                <Item>
+                  <TextField
+                    className="textfield2"
+                    id="outlined-basic"
+                    variant="outlined"
+                    value="Not confirmed !"
+                  />
+                  <a
+                    href="https://example.com/confirm-wallet-address"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="small-link"
+                  >
+                    * You need to confirm your wallet address at first
+                  </a>
+                </Item>
+              </Grid>
+            </Grid>
           </div>
         ) : null}
       </div>

@@ -1,0 +1,45 @@
+.header-container {
+  display: flex;
+  background-color: yellowgreen;
+  margin: 0%;
+  align-items: center;
+}
+
+.title-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  justify-content: flex-start;
+  margin: 0%;
+  margin-left: 20px;
+}
+.subsubtitle {
+  font-size: 1em;
+}
+.main-div {
+  width: 100%;
+}
+.textfield {
+  width: 48%;
+}
+.textfield2 {
+  width: 100%;
+}
+.upload-photo-div {
+  border: rgb(119, 125, 152) solid 1px;
+  border-radius: 8px;
+  height: 80px;
+  width: 90%;
+  padding: 10px;
+  padding-top: 25px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.icon {
+  margin-right: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 60px;
+  height: 60px;
+}

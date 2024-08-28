@@ -8,6 +8,8 @@ import logoDark from "../../assets/images/logo/logo-dark-mode.png";
 import { ThemeContext } from "../../Theme"; // Import ThemeContext
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import avatar from "../../assets/images/mervet.jpg";
+import Avatar from "@mui/material/Avatar";
 
 type Props = {
   currentUser: IUser | undefined;
@@ -39,7 +41,7 @@ const Navbar: React.FC<Props> = ({
   const logo = theme === "dark-theme" ? logoDark : logoLight;
 
   return (
-    <nav className="navbar navbar-expand --bg-primary ">
+    <nav className="navbar navbar-expand --bg-primary">
       {/* Logo section */}
       <Link to={"/home"} className="navbar-logo">
         <img src={logo} alt="Logo" className="navbar-logo" />
@@ -68,45 +70,51 @@ const Navbar: React.FC<Props> = ({
         </li>
       </div>
 
-      {currentUser ? (
-        <div className="navbar-nav ml-auto">
-          <li className="link nav-item">
-            <Link to={"/profile"} className="nav-link">
-              {currentUser.username}
-            </Link>
-          </li>
-          <li className="link nav-item">
-            <a href="/login" className="nav-link" onClick={logOut}>
-              LogOut
-            </a>
-          </li>
-        </div>
-      ) : (
-        <div className="navbar-nav ml-auto">
+      <div className="navbar-nav ml-auto">
+        {/* Theme toggle button */}
+        <li className="link nav-item">
+          <button
+            onClick={toggleTheme}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
+          >
+            {theme === "dark-theme" ? (
+              <Brightness7Icon className="link nav-item" />
+            ) : (
+              <Brightness4Icon className="link nav-item" />
+            )}
+          </button>
+        </li>
+
+        {currentUser ? (
+          <>
+            <li className="link nav-item">
+              <Link to={"/profile"} className="nav-link">
+                <Avatar
+                  alt="Mervet"
+                  src={avatar}
+                  sx={{ width: 40, height: 40 }}
+                />
+              </Link>
+            </li>
+            <li className="link nav-item">
+              <a href="/login" className="nav-link" onClick={logOut}>
+                Logout
+              </a>
+            </li>
+          </>
+        ) : (
           <li className="link nav-item">
             <Link to={"/login"} className="nav-link">
               Register/Log In
             </Link>
           </li>
-          <li className="link nav-item">
-            <button
-              onClick={toggleTheme}
-              style={{
-                background: "none",
-                border: "none",
-                padding: 0,
-                cursor: "pointer",
-              }}
-            >
-              {theme === "dark-theme" ? (
-                <Brightness7Icon className="link nav-item" />
-              ) : (
-                <Brightness4Icon className="link nav-item" />
-              )}
-            </button>
-          </li>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 };

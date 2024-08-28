@@ -1,20 +1,15 @@
-//auth.service uses axios to make HTTP requests. Its also store or get JWT from Browser Local Storage inside these methods.
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     return axios
-      .post(API_URL + "signin", {
-        username,
-        password,
-      })
+      .post(API_URL + "signin", { email, password })
       .then((response) => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
-
         return response.data;
       });
   }
@@ -23,18 +18,29 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username: string, email: string, password: string) {
+  // Updated register method to accept additional fields
+  register(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    gender: string,
+    phoneNumber: string
+  ) {
     return axios.post(API_URL + "signup", {
-      username,
+      firstName,
+      lastName,
       email,
       password,
+
+      gender,
+      phoneNumber,
     });
   }
 
   getCurrentUser() {
     const userStr = localStorage.getItem("user");
     if (userStr) return JSON.parse(userStr);
-
     return null;
   }
 }
