@@ -263,3 +263,27 @@ label {
 .textfield2 {
   width: 100%;
 }
+.action-icons {
+  border-radius: 5px;
+  padding: 1px;
+  margin: 5px;
+}
+.delete {
+  background-color: #f5d5df;
+  color: #cc8585;
+}
+.update {
+  background-color: #f0e9cf;
+  color: #d2b871;
+}
+.title-div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  justify-content: flex-start;
+  margin: 0%;
+  margin-left: 20px;
+}
+.dialog {
+  background-color: #f0f0f0;
+}

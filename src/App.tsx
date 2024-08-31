@@ -10,11 +10,18 @@ import IUser from "./types/user.types";
 import Navbar from "./components/navbar/index";
 import Loading from "./components/Loading spinner/Loading";
 import { ThemeContext } from "./Theme";
-
 // Lazily load route components
 const Home = lazy(() => import("./components/homeComponent/index"));
 const Login = lazy(() => import("./components/login/login.component"));
 const Register = lazy(() => import("./components/register/register.component"));
+
+const GetIntellectualProperties = lazy(
+  () =>
+    import(
+      "./components/intellectualPropertiesComponents/getIntellectualProperties"
+    )
+);
+
 const Profile = lazy(
   () => import("./components/profileComponent/profile.component")
 );
@@ -23,7 +30,6 @@ const BoardModerator = lazy(
   () => import("./components/board-moderator.component")
 );
 const BoardAdmin = lazy(() => import("./components/board-admin.component"));
-
 type Props = {};
 
 type State = {
@@ -96,6 +102,10 @@ class App extends Component<Props, State> {
                   <Route path="/user" element={<BoardUser />} />
                   <Route path="/mod" element={<BoardModerator />} />
                   <Route path="/admin" element={<BoardAdmin />} />
+                  <Route
+                    path="/manage-ip"
+                    element={<GetIntellectualProperties />}
+                  />
                 </Routes>
               </Suspense>
             </div>

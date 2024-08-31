@@ -1,0 +1,13 @@
+.delete-button {
+  color: #f5d5df;
+  background-color: #cc8585;
+}
+.icon {
+  width: 80px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+}
+.text-dialog {
+  padding-left: 20px;
+  padding-right: 20px;
+}
