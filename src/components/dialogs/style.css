@@ -1,0 +1,42 @@
+.delete-button {
+  color: #f5d5df;
+  background-color: #cc8585;
+}
+.alerte-icon {
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50px;
+}
+.text-dialog {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.textfield {
+  width: 100%;
+  margin-top: -2px;
+}
+.button-div {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.subtitle {
+  font-size: 1.2rem;
+  align-items: center;
+  margin-top: 5px;
+}
+.item {
+  align-items: center;
+}
+.button-close {
+  margin-right: 20px;
+}
+.dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  text-align: center; /* Center text if needed */
+}

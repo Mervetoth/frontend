@@ -16,10 +16,7 @@ const Login = lazy(() => import("./components/login/login.component"));
 const Register = lazy(() => import("./components/register/register.component"));
 
 const GetIntellectualProperties = lazy(
-  () =>
-    import(
-      "./components/intellectualPropertiesComponents/getIntellectualProperties"
-    )
+  () => import("./components/intellectualProperties/GetIntellectualProperties")
 );
 
 const Profile = lazy(

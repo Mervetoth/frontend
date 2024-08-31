@@ -1,48 +1,37 @@
-// UpdateDialog.tsx
-import * as React from "react";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import DriveFileRenameOutlineRoundedIcon from "@mui/icons-material/DriveFileRenameOutlineRounded";
-import UpdateIntellectualProperties from "../intellectualPropertiesComponents/updateIntellectualPropertyComponent";
+import UpdateIntellectualProperties from "../../services/UpdateIntellectualProperty";
+import { styled } from "@mui/material/styles";
 import "./style.css";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
+  "& .MuiDialogContent-root": { padding: theme.spacing(2) },
+  "& .MuiDialogActions-root": { padding: theme.spacing(1) },
 }));
 
 interface UpdateDialogProps {
   id: string;
-  onSuccess: () => void; // New prop to handle successful update
+  onSuccess: () => void;
 }
 
 const UpdateDialog: React.FC<UpdateDialogProps> = ({ id, onSuccess }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
-    <React.Fragment>
-      <IconButton onClick={handleClickOpen}>
+    <>
+      <IconButton onClick={handleOpen}>
         <DriveFileRenameOutlineRoundedIcon className="action-icons update" />
       </IconButton>
       <BootstrapDialog
         onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
         open={open}
         fullWidth
         maxWidth="sm"
@@ -56,27 +45,16 @@ const UpdateDialog: React.FC<UpdateDialogProps> = ({ id, onSuccess }) => {
           <IconButton
             aria-label="close"
             onClick={handleClose}
-            sx={(theme) => ({
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: theme.palette.grey[500],
-            })}
+            sx={{ position: "absolute", right: 8, top: 8 }}
           >
             <CloseIcon />
           </IconButton>
         </DialogTitle>
         <DialogContent dividers className="dialog">
-          <UpdateIntellectualProperties
-            id={id}
-            onSuccess={() => {
-              handleClose();
-              onSuccess(); // Call the onSuccess prop to refresh the list
-            }}
-          />
+          <UpdateIntellectualProperties id={id} onSuccess={handleClose} />
         </DialogContent>
       </BootstrapDialog>
-    </React.Fragment>
+    </>
   );
 };
 
