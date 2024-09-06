@@ -25,6 +25,8 @@ class AuthService {
     email: string,
     password: string,
     gender: string,
+    address: string,
+    dateOfBirth: Date | null,
     phoneNumber: string
   ) {
     return axios.post(API_URL + "signup", {
@@ -32,7 +34,8 @@ class AuthService {
       lastName,
       email,
       password,
-
+      address,
+      dateOfBirth,
       gender,
       phoneNumber,
     });

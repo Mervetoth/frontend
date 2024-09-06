@@ -4,6 +4,8 @@ export default interface IUser {
   lastName?: string | null;
   email?: string;
   password?: string;
+  address?: string;
+  dateOfBirth?: Date;
   roles?: Array<string>;
   gender?: string | null;
   phoneNumber?: string | null;

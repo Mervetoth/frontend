@@ -10,7 +10,9 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import AuthService from "../../services/auth.service";
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: "left",
@@ -37,17 +39,22 @@ export default class Register extends Component<Props, State> {
 
   validationSchema() {
     return Yup.object().shape({
-      firstName: Yup.string().required("This field is required!"),
-      lastName: Yup.string().required("This field is required!"),
+      firstName: Yup.string().required("First Name is required!"),
+      lastName: Yup.string().required("Last Name is required!"),
       email: Yup.string()
         .email("This is not a valid email.")
-        .required("This field is required!"),
+        .required("Email is required!"),
       password: Yup.string()
         .min(6, "The password must be between 6 and 40 characters.")
         .max(40, "The password must be between 6 and 40 characters.")
         .required("This field is required!"),
-      gender: Yup.string().required("This field is required!"),
-      phoneNumber: Yup.string().required("This field is required!"),
+      gender: Yup.string().required("Gender is required!"),
+      address: Yup.string().required("Address is required!"),
+      dateOfBirth: Yup.date()
+        .required("Date of birth is required!")
+        .nullable()
+        .typeError("Invalid date"),
+      phoneNumber: Yup.string().required("Phone Number is required!"),
       passwordConfirm: Yup.string()
         .oneOf([Yup.ref("password")], "Passwords must match")
         .required("This field is required!"),
@@ -61,9 +68,19 @@ export default class Register extends Component<Props, State> {
     password: string;
     gender: string;
     phoneNumber: string;
+    dateOfBirth: Date | null;
+    address: string;
   }) => {
-    const { firstName, lastName, email, password, gender, phoneNumber } =
-      formValue;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      gender,
+      phoneNumber,
+      dateOfBirth,
+      address,
+    } = formValue;
 
     this.setState({
       message: "",
@@ -76,7 +93,9 @@ export default class Register extends Component<Props, State> {
       email,
       password,
       gender,
-      phoneNumber
+      phoneNumber,
+      dateOfBirth,
+      address
     ).then(
       (response) => {
         this.setState({
@@ -110,6 +129,8 @@ export default class Register extends Component<Props, State> {
       password: "",
       gender: "",
       phoneNumber: "",
+      dateOfBirth: null,
+      address: "",
     };
 
     return (
@@ -241,6 +262,44 @@ export default class Register extends Component<Props, State> {
                       </Item>
                     </Grid>
                   </Grid>
+                  <Grid container spacing={2}>
+                    <Grid item xs={8}>
+                      <Item className="space-between-container">
+                        <TextField
+                          required
+                          label="Address"
+                          className="textfield"
+                          variant="outlined"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.address}
+                          name="address"
+                          type="text"
+                        />
+                        <ErrorMessage
+                          name="address"
+                          component="div"
+                          className="alert alert-danger"
+                        />
+
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            value={values.dateOfBirth}
+                            name="dateOfBirth"
+                            label="Date of birth"
+                            className="textfield"
+                            slotProps={{ textField: { size: "medium" } }}
+                          />
+                        </LocalizationProvider>
+                        <ErrorMessage
+                          name="dateOfBirth"
+                          component="div"
+                          className="alert alert-danger"
+                        />
+                      </Item>
+                    </Grid>
+                  </Grid>
+
                   <Grid container spacing={2}>
                     <Grid item xs={4}>
                       <Item className="">Gender</Item>
