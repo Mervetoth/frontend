@@ -9,8 +9,8 @@
   overflow: hidden;
 }
 .space-between-container {
-  margin-right: 20px;
-  width: 100%;
+  margin-left: 20px;
+  width: 96%;
 }
 
 /* Align action icons to the right */
@@ -24,4 +24,7 @@
   background-color: #f4f5f8;
   color: #02032a;
   font-weight: bold;
+}
+.title {
+  margin-left: -1px;
 }

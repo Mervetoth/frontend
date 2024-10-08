@@ -1,0 +1,70 @@
+.body-space {
+  display: inline;
+  width: 96%;
+  overflow: hidden;
+}
+.space-between-container {
+  margin-left: 20px;
+  width: 96%;
+}
+
+.title {
+  margin-left: -1px;
+}
+.custom-div {
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; /* Center horizontally */
+}
+.description {
+  margin-top: 20px;
+  border: 1px rgb(180, 179, 179) solid;
+  border-radius: 8px;
+  padding: 10px; /* Add some padding for better readability */
+  text-align: left; /* Aligns text to the left */
+}
+
+.body1 {
+  text-align: left; /* Aligns the text inside Typography to the left */
+}
+.table {
+  width: 96%;
+  justify-content: center;
+  display: flex;
+  margin: 15px auto; /* Center the table with margin auto */
+}
+.body-space {
+  display: inline;
+  overflow: hidden;
+}
+.space-between-container {
+  margin-left: 20px;
+  width: 96%;
+}
+
+.title {
+  margin-left: -1px;
+}
+.subtitle {
+  font-size: 1.1em;
+}
+.custom-div {
+  width: 75%;
+  align-items: center;
+  margin: 1 auto; /* Center horizontally */
+  margin-bottom: 40px;
+  border: 1px rgb(180, 179, 179) solid;
+  border-radius: 8px;
+  padding: 10px; /* Add some padding for better readability */
+  text-align: left; /* Aligns text to the left */
+}
+.error {
+  background-color: var(--primary-error-text);
+  color: var(--primary-error-color);
+}
+
+.success {
+  color: var(--primary-success-text);
+  background-color: var(--primary-success-color);
+}

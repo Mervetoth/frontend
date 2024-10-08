@@ -1,6 +1,5 @@
-// UpdateIntellectualProperties.tsx
 import { Button } from "@mui/material";
-import React, { useEffect, useState, FormEvent } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
@@ -24,22 +23,17 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none", // This removes any shadow
 }));
 
-// Define the props interface for the UpdateIntellectualProperties component
-interface UpdateIntellectualPropertiesProps {
+// Define the props interface for the ViewIntellectualProperties component
+interface ViewIntellectualPropertiesProps {
   id: string;
-  onSuccess: () => void; // New prop to handle successful update
+  onClose: () => void; // Changed from onSuccess to onClose for closing the view
 }
 
-const UpdateIntellectualProperties: React.FC<
-  UpdateIntellectualPropertiesProps
-> = ({ id, onSuccess }) => {
+const ViewIntellectualProperties: React.FC<
+  ViewIntellectualPropertiesProps
+> = ({ id, onClose }) => {
   const [intellectualProperty, setIntellectualProperty] =
     useState<IntellectualProperty | null>(null);
-  const [open, setOpen] = useState(false); // State variable for managing the dialog open state
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,51 +56,10 @@ const UpdateIntellectualProperties: React.FC<
     fetchData();
   }, [id]);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!intellectualProperty || !id) return;
-
-    const form = e.currentTarget;
-    const title = (form.elements.namedItem("title") as HTMLInputElement).value;
-    const description = (
-      form.elements.namedItem("description") as HTMLInputElement
-    ).value;
-    const keywords = (form.elements.namedItem("keywords") as HTMLInputElement)
-      .value;
-    const documentUrl = (
-      form.elements.namedItem("documentUrl") as HTMLInputElement
-    ).value;
-
-    try {
-      const response = await fetch(
-        `http://localhost:8080/api/intellectualProperties/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title, description, keywords, documentUrl }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update intellectual property");
-      }
-
-      const result = await response.json();
-      console.log("Update Successful");
-      setIntellectualProperty(result);
-      onSuccess(); // Call the onSuccess callback to close the dialog and trigger refresh
-    } catch (err) {
-      console.error("Failed to update intellectual property", err);
-    }
-  };
-
   return (
     <div>
       {intellectualProperty ? (
-        <form onSubmit={handleSubmit}>
+        <form>
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <Item className="item">Title</Item>
@@ -120,6 +73,7 @@ const UpdateIntellectualProperties: React.FC<
                   type="text"
                   name="title"
                   defaultValue={intellectualProperty.title}
+                  disabled
                 />
               </Item>
             </Grid>
@@ -140,13 +94,14 @@ const UpdateIntellectualProperties: React.FC<
                   multiline
                   minRows={3}
                   maxRows={8}
+                  disabled
                 />
               </Item>
             </Grid>
           </Grid>
           <Grid container spacing={2}>
             <Grid item xs={3}>
-              <Item className="item">keywords</Item>
+              <Item className="item">Keywords</Item>
             </Grid>
             <Grid item xs={8}>
               <Item className="item">
@@ -157,10 +112,11 @@ const UpdateIntellectualProperties: React.FC<
                   type="text"
                   name="keywords"
                   defaultValue={intellectualProperty.keywords}
+                  disabled
                 />
               </Item>
             </Grid>
-          </Grid>{" "}
+          </Grid>
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <Item className="item">Classification</Item>
@@ -174,10 +130,11 @@ const UpdateIntellectualProperties: React.FC<
                   type="text"
                   name="classification"
                   defaultValue={intellectualProperty.classification || ""}
+                  disabled
                 />
               </Item>
             </Grid>
-          </Grid>{" "}
+          </Grid>
           <Grid container spacing={2}>
             <Grid item xs={3}>
               <Item className="item">Document URL</Item>
@@ -191,18 +148,15 @@ const UpdateIntellectualProperties: React.FC<
                   type="text"
                   name="documentUrl"
                   defaultValue={intellectualProperty.documentUrl || ""}
+                  disabled
                 />
               </Item>
             </Grid>
-          </Grid>{" "}
+          </Grid>
           <hr className="hr"></hr>
           <div className="button-div">
-            {" "}
-            <Button autoFocus onClick={handleClose} className="button-close">
+            <Button autoFocus onClick={onClose} className="button-close">
               Close
-            </Button>
-            <Button type="submit" value="Update" variant="contained">
-              Update
             </Button>
           </div>
         </form>
@@ -213,4 +167,4 @@ const UpdateIntellectualProperties: React.FC<
   );
 };
 
-export default UpdateIntellectualProperties;
+export default ViewIntellectualProperties;

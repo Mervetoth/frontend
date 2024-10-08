@@ -18,7 +18,10 @@ const Register = lazy(() => import("./components/register/register.component"));
 const GetIntellectualProperties = lazy(
   () => import("./components/intellectualProperties/GetIntellectualProperties")
 );
-
+const DemandToTransferIP = lazy(
+  () => import("./components/demandToTransferIP")
+);
+const ApproveTransferIP = lazy(() => import("./components/approveTransferIP"));
 const Profile = lazy(
   () => import("./components/profileComponent/profile.component")
 );
@@ -99,6 +102,14 @@ class App extends Component<Props, State> {
                   <Route path="/user" element={<BoardUser />} />
                   <Route path="/mod" element={<BoardModerator />} />
                   <Route path="/admin" element={<BoardAdmin />} />
+                  <Route
+                    path="/approveTransferIP"
+                    element={<ApproveTransferIP />}
+                  />
+                  <Route
+                    path="/demandToTransferIP"
+                    element={<DemandToTransferIP />}
+                  />
                   <Route
                     path="/manage-ip"
                     element={<GetIntellectualProperties />}

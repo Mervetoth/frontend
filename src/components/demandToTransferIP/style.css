@@ -1,0 +1,42 @@
+.body-space {
+  display: inline;
+  overflow: hidden;
+  width: 100%;
+}
+.space-between-container {
+  margin-left: 20px;
+  width: 96%;
+}
+
+/* Align action icons to the right */
+.action-icons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.data-grid .MuiDataGrid-columnHeader {
+  background-color: #f4f5f8;
+  color: #02032a;
+  font-weight: bold;
+}
+.title {
+  margin-left: -1px;
+}
+.custom-div {
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; /* Center horizontally */
+}
+.description {
+  margin-top: 20px;
+  border: 1px rgb(180, 179, 179) solid;
+  border-radius: 8px;
+  padding: 10px; /* Add some padding for better readability */
+  text-align: left; /* Aligns text to the left */
+}
+
+.body1 {
+  text-align: left; /* Aligns the text inside Typography to the left */
+}

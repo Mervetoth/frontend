@@ -100,7 +100,7 @@ export default class Login extends Component<Props, State> {
           >
             <Form>
               <div className="form-group">
-                <p className="title">Secure Access to Your IP Vault</p>
+                <p className="title">Secure Access to Your IP </p>
                 <h2 className="subsubtitle" style={{ fontStyle: "oblique" }}>
                   Log in to manage, protect, and transfer your intellectual
                   property with blockchain security.

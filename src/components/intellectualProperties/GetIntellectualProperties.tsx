@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import IntellectualProperty from "../../types/intellectualProperties.types";
-import {
-  fetchIntellectualProperties,
-  deleteIntellectualProperty,
-} from "../../services/intellectualPropertyService";
+import { fetchIntellectualProperties } from "../../services/intellectualPropertyService";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Button from "@mui/material/Button";
 import UpdateDialog from "../dialogs/UpdateDialog";
 import DeleteDialog from "../dialogs/DeleteDialog";
 import AddDialog from "../dialogs/AddDialog";
+import ViewDialog from "../dialogs/viewDialog";
 import "./style.css";
 
 const GetIntellectualProperties: React.FC = () => {
@@ -17,6 +15,9 @@ const GetIntellectualProperties: React.FC = () => {
     IntellectualProperty[]
   >([]);
   const [openAddDialog, setOpenAddDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
+  const [selectedProperty, setSelectedProperty] =
+    useState<IntellectualProperty | null>(null);
 
   useEffect(() => {
     loadIntellectualProperties();
@@ -38,20 +39,29 @@ const GetIntellectualProperties: React.FC = () => {
   };
   const handleDeleteSuccess = () => loadIntellectualProperties();
 
+  const handleRowClick = (params: any) => {
+    setSelectedProperty(params.row);
+    setOpenViewDialog(true);
+  };
+
   const columns: GridColDef[] = [
-    { field: "title", headerName: "Title", flex: 1 },
-    { field: "description", headerName: "Description", flex: 2 },
+    { field: "title", headerName: "Title", flex: 1.5 },
+    { field: "description", headerName: "Description", flex: 4 },
+    { field: "classification", headerName: "Classification", flex: 2 },
     { field: "status", headerName: "Status", flex: 1 },
-    { field: "documentUrl", headerName: "Document URL", flex: 2 },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: "",
       flex: 2,
       align: "right",
       renderCell: (params: GridRenderCellParams) => (
         <div className="action-icons-container">
           <UpdateDialog id={params.row.id} onSuccess={handleUpdateSuccess} />
-          <DeleteDialog id={params.row.id} onSuccess={handleDeleteSuccess} />
+          <DeleteDialog
+            id={params.row.id}
+            title={params.row.title}
+            onSuccess={handleDeleteSuccess}
+          />
         </div>
       ),
     },
@@ -63,7 +73,8 @@ const GetIntellectualProperties: React.FC = () => {
       title: item.title,
       description: item.description,
       status: item.status,
-      documentUrl: item.documentUrl,
+      keywords: item.keywords,
+      classification: item.classification,
       createdAt: item.createdAt,
     }))
     .sort(
@@ -85,7 +96,7 @@ const GetIntellectualProperties: React.FC = () => {
           startIcon={<AddRoundedIcon />}
           onClick={() => setOpenAddDialog(true)}
         >
-          Add New IP
+          Register IP
         </Button>
       </div>
       <hr className="hr" />
@@ -99,12 +110,18 @@ const GetIntellectualProperties: React.FC = () => {
               paginationModel: { page: 0, pageSize: 6 },
             },
           }}
+          onRowClick={handleRowClick} // Handle row clicks
         />
       </div>
       <AddDialog
         open={openAddDialog}
         onClose={() => setOpenAddDialog(false)}
         onSuccess={handleCreateSuccess}
+      />
+      <ViewDialog
+        open={openViewDialog}
+        onClose={() => setOpenViewDialog(false)}
+        intellectualProperty={selectedProperty}
       />
     </div>
   );

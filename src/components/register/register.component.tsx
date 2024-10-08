@@ -70,6 +70,8 @@ export default class Register extends Component<Props, State> {
     phoneNumber: string;
     dateOfBirth: Date | null;
     address: string;
+    userType: string;
+    roles: string[];
   }) => {
     const {
       firstName,
@@ -78,8 +80,10 @@ export default class Register extends Component<Props, State> {
       password,
       gender,
       phoneNumber,
+      roles,
       dateOfBirth,
       address,
+      userType,
     } = formValue;
 
     this.setState({
@@ -95,6 +99,8 @@ export default class Register extends Component<Props, State> {
       gender,
       phoneNumber,
       dateOfBirth,
+      roles,
+      userType,
       address
     ).then(
       (response) => {
@@ -131,6 +137,8 @@ export default class Register extends Component<Props, State> {
       phoneNumber: "",
       dateOfBirth: null,
       address: "",
+      roles: ["user"],
+      userType: "user",
     };
 
     return (

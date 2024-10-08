@@ -11,6 +11,7 @@ import DialogButton from "./DialogButton";
 import { deleteIntellectualProperty } from "../../services/intellectualPropertyService";
 import "./style.css";
 import alerteIcon from "../../assets/images/icons/alerte.png";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": { padding: theme.spacing(2) },
   "& .MuiDialogActions-root": { padding: theme.spacing(1) },
@@ -18,19 +19,33 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 interface DeleteDialogProps {
   id: string;
+  title: string; // Add title as a prop
   onSuccess: () => void;
 }
 
-const DeleteDialog: React.FC<DeleteDialogProps> = ({ id, onSuccess }) => {
+const DeleteDialog: React.FC<DeleteDialogProps> = ({
+  id,
+  title,
+  onSuccess,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
-    if (await deleteIntellectualProperty(id)) {
-      onSuccess();
-      handleClose();
+    try {
+      const success = await deleteIntellectualProperty(id);
+      if (success) {
+        onSuccess();
+        handleClose();
+      } else {
+        // Handle unsuccessful deletion (e.g., show a message)
+        console.error("Failed to delete intellectual property");
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error deleting intellectual property:", error);
     }
   };
 
@@ -48,8 +63,12 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({ id, onSuccess }) => {
         <DialogContent dividers className="dialog">
           <img src={alerteIcon} alt="Alert Icon" className="alerte-icon" />
           <Typography gutterBottom className="text-dialog">
-            Are you sure you want to delete this IP? This action cannot be
-            undone.
+            <br />
+            Are you sure you want to delete the intellectual property titled:{" "}
+            <strong>{title}</strong>?<br />
+            <Typography gutterBottom className="note-dialog">
+              This action is irreversible and cannot be undone.
+            </Typography>{" "}
           </Typography>
         </DialogContent>
         <DialogActions className="dialog">

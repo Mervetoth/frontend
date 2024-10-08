@@ -135,6 +135,12 @@ label {
 
   --bg-navbar-light: #84bcfb;
   --bg-navbar-dark: rgb(29, 29, 58);
+
+  --primary-error-color: #cc8585;
+  --primary-error-text: #f5d5df;
+
+  --primary-success-color: #dbfbe6;
+  --primary-success-text: #32a650;
 }
 
 .light-theme {
@@ -152,6 +158,16 @@ label {
   --bg-secondary: var(--bg-secondary-dark);
   --bg-navbar: var(--bg-navbar-dark);
 }
+.error {
+  color: var(--primary-error-text);
+  background-color: var(--primary-error-color);
+}
+
+.success {
+  color: var(--primary-success-text);
+  background-color: var(--primary-success-color);
+}
+
 /* Title class for bold text */
 .title {
   font-weight: bold;

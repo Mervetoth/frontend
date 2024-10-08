@@ -27,7 +27,7 @@ const AddDialog: React.FC<AddDialogProps> = ({ open, onClose, onSuccess }) => {
         id="customized-dialog-title"
         className="dialog"
       >
-        <h3 className="subtitle">Add New Intellectual Property</h3>
+        <h3 className="subtitle">Register new Intellectual Property</h3>
         <IconButton
           aria-label="close"
           onClick={onClose}

@@ -27,7 +27,9 @@ class AuthService {
     gender: string,
     address: string,
     dateOfBirth: Date | null,
-    phoneNumber: string
+    roles: string[],
+    phoneNumber: string,
+    userType: string
   ) {
     return axios.post(API_URL + "signup", {
       firstName,
@@ -38,6 +40,8 @@ class AuthService {
       dateOfBirth,
       gender,
       phoneNumber,
+      userType,
+      roles,
     });
   }
 

@@ -46,3 +46,6 @@
 .ml-auto {
   margin-left: auto;
 }
+.theme-icon {
+  color: var(--text-primary);
+}

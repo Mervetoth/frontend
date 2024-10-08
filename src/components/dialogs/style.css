@@ -40,3 +40,25 @@
   justify-content: center; /* Center vertically */
   text-align: center; /* Center text if needed */
 }
+.note-dialog {
+  font-size: 14px;
+  color: #d9534f; /* Red color for emphasis */
+  background-color: #f9f9f9; /* Light background color */
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px; /* Slightly rounded corners */
+  font-style: italic; /* Italicized text for a note-like appearance */
+}
+.text-field {
+  color: black; /* Set text color to black */
+}
+
+.text-field .MuiOutlinedInput-root {
+  border: 1px solid white; /* Set border color to white */
+}
+
+.text-field
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: white; /* Set border color when the field is focused */
+}

@@ -10,6 +10,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import avatar from "../../assets/images/mervet.jpg";
 import Avatar from "@mui/material/Avatar";
+import NotificationDropDownMenu from "../notificationFropDownIcon";
 
 type Props = {
   currentUser: IUser | undefined;
@@ -49,23 +50,18 @@ const Navbar: React.FC<Props> = ({
 
       <div className="navbar-nav mr-auto">
         <li className="link nav-item">
-          <Link to={"/register-ip"} className="nav-link">
-            Register IP
-          </Link>
-        </li>
-        <li className="link nav-item">
           <Link to={"/manage-ip"} className="nav-link">
             Manage IP
           </Link>
         </li>
         <li className="link nav-item">
-          <Link to={"/transfer-ip"} className="nav-link">
+          <Link to={"/DemandToTransferIP"} className="nav-link">
             Transfer IP
           </Link>
         </li>
         <li className="link nav-item">
-          <Link to={"/plagiarism-detection"} className="nav-link">
-            Plagiarism Detection
+          <Link to={"/approveTransferIP"} className="nav-link">
+            Transfer Requests
           </Link>
         </li>
       </div>
@@ -83,15 +79,18 @@ const Navbar: React.FC<Props> = ({
             }}
           >
             {theme === "dark-theme" ? (
-              <Brightness7Icon className="link nav-item" />
+              <Brightness7Icon className="link nav-item theme-icon" />
             ) : (
-              <Brightness4Icon className="link nav-item" />
+              <Brightness4Icon className="link nav-item theme-icon" />
             )}
           </button>
         </li>
 
         {currentUser ? (
           <>
+            <li className="link nav-item theme-icon">
+              <NotificationDropDownMenu></NotificationDropDownMenu>
+            </li>
             <li className="link nav-item">
               <Link to={"/profile"} className="nav-link">
                 <Avatar

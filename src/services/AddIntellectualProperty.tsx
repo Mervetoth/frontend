@@ -1,10 +1,6 @@
-//CreateIntellectualPropertyFormProps
-import { Button } from "@mui/material";
 import React from "react";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import { Button, TextField, Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import "./style.css";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -30,13 +26,24 @@ const CreateIntellectualPropertyForm: React.FC<
     const description = (
       form.elements.namedItem("description") as HTMLInputElement
     ).value;
-    const status = (form.elements.namedItem("status") as HTMLInputElement)
-      .value;
+
     const documentUrl = (
       form.elements.namedItem("documentUrl") as HTMLInputElement
     ).value;
+    const classification = (
+      form.elements.namedItem("classification") as HTMLInputElement
+    ).value;
+    const keywords = (
+      form.elements.namedItem("keywords") as HTMLInputElement
+    ).value.split(",");
 
-    const sendData = { title, description, status, documentUrl };
+    const sendData = {
+      title,
+      description,
+      documentUrl,
+      classification,
+      keywords,
+    };
 
     try {
       const response = await fetch(
@@ -79,6 +86,7 @@ const CreateIntellectualPropertyForm: React.FC<
                 variant="outlined"
                 type="text"
                 name="title"
+                required
               />
             </Item>
           </Grid>
@@ -94,25 +102,12 @@ const CreateIntellectualPropertyForm: React.FC<
                 variant="outlined"
                 type="text"
                 name="description"
+                required
               />
             </Item>
           </Grid>
         </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <Item className="item">Status</Item>
-          </Grid>
-          <Grid item xs={8}>
-            <Item className="item">
-              <TextField
-                className="textfield"
-                variant="outlined"
-                type="text"
-                name="status"
-              />
-            </Item>
-          </Grid>
-        </Grid>
+
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <Item className="item">Document URL</Item>
@@ -122,8 +117,38 @@ const CreateIntellectualPropertyForm: React.FC<
               <TextField
                 className="textfield"
                 variant="outlined"
-                type="text"
+                type="url"
                 name="documentUrl"
+              />
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <Item className="item">Classification</Item>
+          </Grid>
+          <Grid item xs={8}>
+            <Item className="item">
+              <TextField
+                className="textfield"
+                variant="outlined"
+                type="text"
+                name="classification"
+              />
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <Item className="item">Keywords (comma separated)</Item>
+          </Grid>
+          <Grid item xs={8}>
+            <Item className="item">
+              <TextField
+                className="textfield"
+                variant="outlined"
+                type="text"
+                name="keywords"
               />
             </Item>
           </Grid>

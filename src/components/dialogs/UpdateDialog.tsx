@@ -41,7 +41,7 @@ const UpdateDialog: React.FC<UpdateDialogProps> = ({ id, onSuccess }) => {
           id="customized-dialog-title"
           className="dialog"
         >
-          <h3 className="subtitle">Update Intellectual Property Details</h3>
+          <h3 className="subtitle">Update Intellectual Property details</h3>
           <IconButton
             aria-label="close"
             onClick={handleClose}
